@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f7;
-  --foreground: #23211f;
+  --background: #f2ecdd;
+  --background-raised: #e9e0c6;
+  --foreground: #211c17;
+  --foreground-muted: #6b5f4d;
+  --accent: #a35c0a;
+  --accent-ink: #f2ecdd;
+  --rule: #c9bc98;
+  --chip: #e6d8ab;
+
+  /* Fixed ink-band tokens: the hero and footer are a deliberate dark
+     band that always reads the same way, independent of the site's
+     light/dark theme (which only governs the reading surface below). */
+  --ink-fixed: #211c17;
+  --paper-fixed: #f2ecdd;
+  --accent-fixed: #e79a3e;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-raised: var(--background-raised);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-rule: var(--rule);
+  --color-chip: var(--chip);
+  --font-display: "Iowan Old Style", "Sitka Text", Georgia, serif;
+  --font-body: "Iowan Old Style", "Sitka Text", Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #161513;
-    --foreground: #e8e6e2;
+    --background: #1e1a15;
+    --background-raised: #282219;
+    --foreground: #f2ecdd;
+    --foreground-muted: #b8ad97;
+    --accent: #e79a3e;
+    --accent-ink: #1e1a15;
+    --rule: #4a4133;
+    --chip: #332b1c;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+}
+
+/* Pins --foreground/--background/--accent to the fixed ink-band
+   values for anything inside it (hero, footer), overriding the
+   theme-adaptive definitions above regardless of light/dark mode. */
+.band-fixed {
+  --foreground: var(--ink-fixed);
+  --background: var(--paper-fixed);
+  --accent: var(--accent-fixed);
+}
+
+/* Placeholder photo component — stands in for real project/hero photography. */
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--foreground) 0%, var(--accent) 150%);
+}
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: url(#grain);
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.photo .photo-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  transform: translate(-50%, -50%);
+  color: var(--background);
+  opacity: 0.55;
+}
+.photo .photo-fig {
+  position: absolute;
+  left: 0.7rem;
+  bottom: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--background);
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* Hero — full-bleed parallax photo band. */
+.hero-bg {
+  position: absolute;
+  inset: -12% 0 0 0;
+  height: 124%;
+  will-change: transform;
+}
+.hero-bg .photo-icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  opacity: 0.35;
+}
+.hero-bg .photo-fig {
+  font-size: 0.72rem;
+  left: 1.5rem;
+  bottom: 1.5rem;
+}
+.hero-contours {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 16, 12, 0.35) 0%,
+    rgba(20, 16, 12, 0.05) 32%,
+    var(--foreground) 92%
+  );
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg {
+    transform: none !important;
+  }
 }

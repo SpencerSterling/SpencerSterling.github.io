@@ -2,31 +2,32 @@ import { profile } from "@/data/profile";
 
 export type Project = {
   title: string;
-  description: string;
+  org: string;
+  year: string;
   link: string;
-  tags: string[];
+  imageCaption: string;
 };
 
 export const projects: Project[] = [
   {
-    title: "Placeholder Project 1",
-    description:
-      "TODO: Replace with a real project description, what it does, and your role in it.",
+    title: "TODO: Placeholder Project 1",
+    org: "TODO: Company or client name",
+    year: "TODO: e.g. 2024",
     link: profile.github,
-    tags: ["TODO"],
+    imageCaption: "TODO: short figure caption for the project photo",
   },
   {
-    title: "Placeholder Project 2",
-    description:
-      "TODO: Replace with a real project description, what it does, and your role in it.",
+    title: "TODO: Placeholder Project 2",
+    org: "TODO: Company or client name",
+    year: "TODO: e.g. 2022",
     link: profile.github,
-    tags: ["TODO"],
+    imageCaption: "TODO: short figure caption for the project photo",
   },
   {
-    title: "Placeholder Project 3",
-    description:
-      "TODO: Replace with a real project description, what it does, and your role in it.",
+    title: "TODO: Placeholder Project 3",
+    org: "TODO: Company or client name",
+    year: "TODO: e.g. 2020",
     link: profile.github,
-    tags: ["TODO"],
+    imageCaption: "TODO: short figure caption for the project photo",
   },
 ];
